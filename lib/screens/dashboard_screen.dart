@@ -220,119 +220,132 @@ class DashboardScreen extends StatelessWidget {
                 ),
 
                 // Header: wrapped in a rounded dark card to match the screenshot
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16), // tuned padding
-                  decoration: BoxDecoration(
-                    color: _card,
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: Colors.white.withAlpha((0.02 * 255).round())),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Avatar column (avatar + status pill)
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
+                SizedBox(
+                  height: 104, // fixed header height to match screenshot proportions
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: _card,
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(color: Colors.white.withAlpha((0.02 * 255).round())),
+                        boxShadow: [
+                          BoxShadow(color: Colors.black.withOpacity(0.35), blurRadius: 8, offset: const Offset(0, 4)),
+                        ],
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          // outer ring + avatar
-                          Stack(
-                            clipBehavior: Clip.none,
+                          // Avatar column (avatar + status pill)
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              Container(
-                                padding: const EdgeInsets.all(3),
-                                decoration: BoxDecoration(
-                                  color: _card,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white.withAlpha((0.08 * 255).round()), width: 1.6),
-                                ),
-                                child: CircleAvatar(
-                                  radius: 20, // tuned to look like the screenshot
-                                  backgroundColor: Colors.green.shade700,
-                                  child: const Icon(Icons.person, color: Colors.white, size: 18),
-                                ),
-                              ),
-                              Positioned(
-                                right: -8, // push badge further out like screenshot
-                                top: -8,
-                                child: Container(
-                                  width: 10,
-                                  height: 10,
-                                  decoration: BoxDecoration(
-                                    color: Colors.redAccent,
-                                    shape: BoxShape.circle,
-                                    border: Border.all(color: _card, width: 1.6),
+                              // outer ring + avatar
+                              Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                      color: _card,
+                                      shape: BoxShape.circle,
+                                      border: Border.all(color: Colors.white.withAlpha((0.08 * 255).round()), width: 1.6),
+                                    ),
+                                    child: CircleAvatar(
+                                      radius: 26, // slightly larger to match screenshot scale
+                                      backgroundColor: Colors.green.shade700,
+                                      child: const Icon(Icons.person, color: Colors.white, size: 20),
+                                    ),
                                   ),
+                                  Positioned(
+                                    right: -10,
+                                    top: -10,
+                                    child: Container(
+                                      width: 12,
+                                      height: 12,
+                                      decoration: BoxDecoration(
+                                        color: Colors.redAccent,
+                                        shape: BoxShape.circle,
+                                        border: Border.all(color: _card, width: 1.6),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+                              // status pill
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF155C44),
+                                  borderRadius: BorderRadius.circular(18),
                                 ),
+                                child: Text('مكتمل', style: GoogleFonts.cairo(color: Colors.white70, fontSize: 12)),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 6),
-                          // status pill
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF155C44),
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: Text('مكتمل', style: GoogleFonts.cairo(color: Colors.white70, fontSize: 12)),
-                          ),
-                        ],
-                      ),
 
-                      const SizedBox(width: 12), // adjusted gap
+                          const SizedBox(width: 14), // tuned gap between avatar and title
 
-                      // Middle column: title and subtitle
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('مخيم الست اميرة', style: GoogleFonts.cairo(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                            const SizedBox(height: 8),
-                            Row(
+                          // Middle column: title and subtitle
+                          Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(Icons.location_on_outlined, size: 16, color: Colors.white54),
-                                const SizedBox(width: 6),
-                                Text('المنطقة الوسطى / البركة', style: GoogleFonts.cairo(fontSize: 12, color: Colors.white54)),
+                                Text('مخيم الست اميرة', style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.w800, color: Colors.white)),
+                                const SizedBox(height: 6),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.location_on_outlined, size: 14, color: Colors.white54),
+                                    const SizedBox(width: 6),
+                                    Text('المنطقة الوسطى / البركة', style: GoogleFonts.cairo(fontSize: 12, color: Colors.white54)),
+                                  ],
+                                ),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
+                          ),
 
-                      // Right icons: bell + menu
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Stack(
-                            clipBehavior: Clip.none,
+                          // Right icons: bell + menu (compact)
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
+                              Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    padding: const EdgeInsets.all(8),
+                                    constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
+                                    icon: const Icon(Icons.notifications_outlined, color: Colors.white70),
+                                  ),
+                                  Positioned(
+                                    right: 8,
+                                    top: 6,
+                                    child: Container(
+                                      width: 8,
+                                      height: 8,
+                                      decoration: BoxDecoration(
+                                        color: Colors.redAccent,
+                                        shape: BoxShape.circle,
+                                        border: Border.all(color: _card, width: 1.2),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                               IconButton(
                                 onPressed: () {},
-                                icon: const Icon(Icons.notifications_outlined),
-                              ),
-                              Positioned(
-                                right: 10, // position near bell top-right
-                                top: 6,
-                                child: Container(
-                                  width: 8,
-                                  height: 8,
-                                  decoration: BoxDecoration(
-                                    color: Colors.redAccent,
-                                    shape: BoxShape.circle,
-                                    border: Border.all(color: _card, width: 1.2),
-                                  ),
-                                ),
+                                padding: const EdgeInsets.all(8),
+                                constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
+                                icon: const Icon(Icons.menu, color: Colors.white70),
                               ),
                             ],
                           ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.menu),
-                          ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
                 const SizedBox(height: 18),
