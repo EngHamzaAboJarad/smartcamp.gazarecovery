@@ -221,7 +221,7 @@ class DashboardScreen extends StatelessWidget {
 
                 // Header: wrapped in a rounded dark card to match the screenshot
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14), // adjusted padding
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16), // tuned padding
                   decoration: BoxDecoration(
                     color: _card,
                     borderRadius: BorderRadius.circular(14),
@@ -239,28 +239,28 @@ class DashboardScreen extends StatelessWidget {
                             clipBehavior: Clip.none,
                             children: [
                               Container(
-                                padding: const EdgeInsets.all(3.5),
+                                padding: const EdgeInsets.all(3),
                                 decoration: BoxDecoration(
                                   color: _card,
                                   shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white.withAlpha((0.08 * 255).round()), width: 1.8),
+                                  border: Border.all(color: Colors.white.withAlpha((0.08 * 255).round()), width: 1.6),
                                 ),
                                 child: CircleAvatar(
-                                  radius: 16, // smaller avatar
+                                  radius: 20, // tuned to look like the screenshot
                                   backgroundColor: Colors.green.shade700,
-                                  child: const Icon(Icons.person, color: Colors.white, size: 14),
+                                  child: const Icon(Icons.person, color: Colors.white, size: 18),
                                 ),
                               ),
                               Positioned(
-                                right: -6,
-                                top: -10,
+                                right: -8, // push badge further out like screenshot
+                                top: -8,
                                 child: Container(
-                                  width: 8,
-                                  height: 8,
+                                  width: 10,
+                                  height: 10,
                                   decoration: BoxDecoration(
                                     color: Colors.redAccent,
                                     shape: BoxShape.circle,
-                                    border: Border.all(color: _card, width: 1.4),
+                                    border: Border.all(color: _card, width: 1.6),
                                   ),
                                 ),
                               ),
@@ -274,12 +274,12 @@ class DashboardScreen extends StatelessWidget {
                               color: const Color(0xFF155C44),
                               borderRadius: BorderRadius.circular(18),
                             ),
-                            child: Text('مكتمل', style: GoogleFonts.cairo(color: Colors.white70, fontSize: 11)),
+                            child: Text('مكتمل', style: GoogleFonts.cairo(color: Colors.white70, fontSize: 12)),
                           ),
                         ],
                       ),
 
-                      const SizedBox(width: 10), // tighter gap
+                      const SizedBox(width: 12), // adjusted gap
 
                       // Middle column: title and subtitle
                       Expanded(
@@ -287,8 +287,8 @@ class DashboardScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('مخيم الست اميرة', style: GoogleFonts.cairo(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white)),
-                            const SizedBox(height: 6),
+                            Text('مخيم الست اميرة', style: GoogleFonts.cairo(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                            const SizedBox(height: 8),
                             Row(
                               children: [
                                 const Icon(Icons.location_on_outlined, size: 16, color: Colors.white54),
@@ -312,8 +312,8 @@ class DashboardScreen extends StatelessWidget {
                                 icon: const Icon(Icons.notifications_outlined),
                               ),
                               Positioned(
-                                left: 2,
-                                top: 4,
+                                right: 10, // position near bell top-right
+                                top: 6,
                                 child: Container(
                                   width: 8,
                                   height: 8,
