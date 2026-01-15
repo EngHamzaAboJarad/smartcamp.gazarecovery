@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartcamp_gazarecovery/screens/dashboard_screen.dart';
+import 'package:smartcamp_gazarecovery/screens/main_navigation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
         // force matching brightness and use Material 3 with a dark color scheme
         brightness: Brightness.dark,
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.deepPurple, brightness: Brightness.dark),
         // Make background and card colors match the design
         scaffoldBackgroundColor: const Color(0xFF0B1216),
         cardColor: const Color(0xFF0F1A1F),
@@ -29,10 +30,10 @@ class MyApp extends StatelessWidget {
           type: BottomNavigationBarType.fixed,
         ),
       ),
-      // Force RTL and set the new Dashboard screen as home
+      // Force RTL and set the new MainNavigation screen as home
       home: const Directionality(
         textDirection: TextDirection.rtl,
-        child: DashboardScreen(),
+        child: MainNavigationScreen(),
       ),
     );
   }

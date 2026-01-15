@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smartcamp_gazarecovery/screens/maine%20Pages/tents.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -544,6 +545,32 @@ class DashboardScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
+
+      // Bottom navigation
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFF0B0F13),
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.white54,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'حساب'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite), label: 'المساعدات'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'الخيام'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.grid_view), label: 'الرئيسية'),
+        ],
+        currentIndex: 3,
+        onTap: (i) {
+          if (i == 2) {
+            // الخيام - الفهرس 2
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const TentsScreen()),
+            );
+          }
+        },
       ),
     );
   }
