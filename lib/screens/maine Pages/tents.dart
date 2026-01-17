@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../camp_details_screen.dart';
+import 'package:smartcamp_gazarecovery/utils/size_config.dart';
 
 class TentsScreen extends StatefulWidget {
   const TentsScreen({super.key});
@@ -14,9 +16,10 @@ class _TentsScreenState extends State<TentsScreen> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final isTablet = screenWidth > 600;
-    final horizontalPadding = isTablet ? 32.0 : 16.0;
-    final maxWidth = isTablet ? 800.0 : double.infinity;
+    // keep a maxWidth constraint for very wide screens but still scale paddings
+    final bool isWide = screenWidth > 800;
+    final double horizontalPadding = SizeConfig.sw(context, 16);
+    final double maxWidth = isWide ? 800.0 : double.infinity;
 
     return Scaffold(
       backgroundColor: const Color(0xFF0F1419),
@@ -27,7 +30,7 @@ class _TentsScreenState extends State<TentsScreen> {
           'الخيام',
           style: TextStyle(
             color: Colors.white70,
-            fontSize: isTablet ? 22 : 18,
+            fontSize: SizeConfig.sp(context, 18),
           ),
         ),
         centerTitle: false,
@@ -45,23 +48,23 @@ class _TentsScreenState extends State<TentsScreen> {
                     children: [
                       // Camp info card
                       _buildCampInfoCard(),
-                      SizedBox(height: isTablet ? 28 : 20),
+                      SizedBox(height: SizeConfig.sh(context, 20)),
 
                       // Search bar
                       _buildSearchBar(),
-                      SizedBox(height: isTablet ? 32 : 24),
+                      SizedBox(height: SizeConfig.sh(context, 24)),
 
                       // Shelter type section
                       _buildSectionTitle('نوع الإيواء'),
-                      SizedBox(height: isTablet ? 16 : 12),
+                      SizedBox(height: SizeConfig.sh(context, 12)),
                       _buildShelterTypes(),
-                      SizedBox(height: isTablet ? 32 : 24),
+                      SizedBox(height: SizeConfig.sh(context, 24)),
 
                       // Family category section
                       _buildSectionTitle('تصنيف الاحتياج العائلة'),
-                      SizedBox(height: isTablet ? 16 : 12),
+                      SizedBox(height: SizeConfig.sh(context, 12)),
                       _buildFamilyCategories(),
-                      SizedBox(height: isTablet ? 32 : 24),
+                      SizedBox(height: SizeConfig.sh(context, 24)),
 
                       // Tents list
                       _buildTentCard(
@@ -76,7 +79,7 @@ class _TentsScreenState extends State<TentsScreen> {
                         icon: Icons.campaign_outlined,
                         iconColor: Colors.blue,
                       ),
-                      SizedBox(height: isTablet ? 16 : 12),
+                      SizedBox(height: SizeConfig.sh(context, 12)),
 
                       _buildTentCard(
                         tentId: 'خيمة مبأورة',
@@ -90,7 +93,7 @@ class _TentsScreenState extends State<TentsScreen> {
                         icon: Icons.home_outlined,
                         iconColor: Colors.purple,
                       ),
-                      SizedBox(height: isTablet ? 16 : 12),
+                      SizedBox(height: SizeConfig.sh(context, 12)),
 
                       _buildTentCard(
                         tentId: 'بناء الهدى شقة 3',
@@ -104,7 +107,7 @@ class _TentsScreenState extends State<TentsScreen> {
                         icon: Icons.business_outlined,
                         iconColor: Colors.teal,
                       ),
-                      SizedBox(height: isTablet ? 16 : 12),
+                      SizedBox(height: SizeConfig.sh(context, 12)),
 
                       _buildTentCard(
                         tentId: 'A-103a',
@@ -118,7 +121,7 @@ class _TentsScreenState extends State<TentsScreen> {
                         icon: Icons.apartment_outlined,
                         iconColor: Colors.grey,
                       ),
-                      const SizedBox(height: 80),
+                      SizedBox(height: SizeConfig.sh(context, 80)),
                     ],
                   ),
                 ),
@@ -133,13 +136,13 @@ class _TentsScreenState extends State<TentsScreen> {
         icon: Icon(
           Icons.add_location_alt_outlined,
           color: Colors.white,
-          size: isTablet ? 26 : 22,
+          size: SizeConfig.sp(context, 22),
         ),
         label: Text(
           'إضافة خيمة',
           style: TextStyle(
             color: Colors.white,
-            fontSize: isTablet ? 18 : 16,
+            fontSize: SizeConfig.sp(context, 16),
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -149,10 +152,10 @@ class _TentsScreenState extends State<TentsScreen> {
 
   Widget _buildCampInfoCard() {
     final screenWidth = MediaQuery.of(context).size.width;
-    final isTablet = screenWidth > 600;
+    final bool isLarge = screenWidth > 800;
 
     return Container(
-      padding: EdgeInsets.all(isTablet ? 28 : 20),
+      padding: EdgeInsets.all(SizeConfig.sw(context, 20)),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
@@ -162,7 +165,7 @@ class _TentsScreenState extends State<TentsScreen> {
             Color(0xFF0D1F33),
           ],
         ),
-        borderRadius: BorderRadius.circular(isTablet ? 20 : 16),
+        borderRadius: BorderRadius.circular(SizeConfig.sw(context, 16)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,42 +177,42 @@ class _TentsScreenState extends State<TentsScreen> {
                 'الخيام',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: isTablet ? 26 : 20,
+                  fontSize: SizeConfig.sp(context, 20),
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: isTablet ? 6 : 4),
+              SizedBox(height: SizeConfig.sh(context, 6)),
               Text(
                 'مخيم النور ومحيطه',
                 style: TextStyle(
                   color: Colors.white70,
-                  fontSize: isTablet ? 16 : 14,
+                  fontSize: SizeConfig.sp(context, 14),
                 ),
               ),
             ],
           ),
           Container(
             padding: EdgeInsets.symmetric(
-              horizontal: isTablet ? 16 : 12,
-              vertical: isTablet ? 8 : 6,
+              horizontal: SizeConfig.sw(context, 12),
+              vertical: SizeConfig.sh(context, 6),
             ),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.15),
-              borderRadius: BorderRadius.circular(isTablet ? 10 : 8),
+              color: Colors.white.withAlpha((0.15 * 255).round()),
+              borderRadius: BorderRadius.circular(SizeConfig.sw(context, 8)),
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.location_city,
                   color: Colors.white70,
-                  size: isTablet ? 20 : 16,
+                  size: SizeConfig.sp(context, 16),
                 ),
-                SizedBox(width: isTablet ? 8 : 6),
+                SizedBox(width: SizeConfig.sw(context, 6)),
                 Text(
                   '216 مكان',
                   style: TextStyle(
                     color: Colors.white70,
-                    fontSize: isTablet ? 14 : 12,
+                    fontSize: SizeConfig.sp(context, 12),
                   ),
                 ),
               ],
@@ -228,28 +231,29 @@ class _TentsScreenState extends State<TentsScreen> {
       decoration: BoxDecoration(
         color: const Color(0xFF1A2530),
         borderRadius: BorderRadius.circular(isTablet ? 14 : 12),
+        border: Border.all(color: Colors.white.withAlpha((0.1 * 255).round())),
       ),
       child: TextField(
         textAlign: TextAlign.right,
         style: TextStyle(
           color: Colors.white,
-          fontSize: isTablet ? 16 : 14,
+          fontSize: isTablet ? SizeConfig.sp(context, 16) : SizeConfig.sp(context, 14),
         ),
         decoration: InputDecoration(
           hintText: 'بحث برقم المكان، اسم العائلة، أو النوع...',
           hintStyle: TextStyle(
-            color: Colors.white.withOpacity(0.5),
-            fontSize: isTablet ? 16 : 14,
+            color: Colors.white.withAlpha((0.5 * 255).round()),
+            fontSize: isTablet ? SizeConfig.sp(context, 16) : SizeConfig.sp(context, 14),
           ),
           prefixIcon: Icon(
             Icons.search,
-            color: Colors.white.withOpacity(0.5),
-            size: isTablet ? 26 : 22,
+            color: Colors.white.withAlpha((0.5 * 255).round()),
+            size: isTablet ? SizeConfig.sp(context, 26) : SizeConfig.sp(context, 22),
           ),
           border: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(
-            horizontal: isTablet ? 20 : 16,
-            vertical: isTablet ? 18 : 14,
+            horizontal: isTablet ? SizeConfig.sw(context, 20) : SizeConfig.sw(context, 16),
+            vertical: isTablet ? SizeConfig.sh(context, 18) : SizeConfig.sh(context, 14),
           ),
         ),
       ),
@@ -264,7 +268,7 @@ class _TentsScreenState extends State<TentsScreen> {
       title,
       style: TextStyle(
         color: Colors.white,
-        fontSize: isTablet ? 16 : 14,
+        fontSize: isTablet ? SizeConfig.sp(context, 16) : SizeConfig.sp(context, 14),
         fontWeight: FontWeight.w500,
       ),
     );
@@ -414,196 +418,108 @@ class _TentsScreenState extends State<TentsScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final isTablet = screenWidth > 600;
 
-    return Container(
-      padding: EdgeInsets.all(isTablet ? 20 : 16),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1A2530),
-        borderRadius: BorderRadius.circular(isTablet ? 14 : 12),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              // Icon
-              Container(
-                padding: EdgeInsets.all(isTablet ? 16 : 12),
-                decoration: BoxDecoration(
-                  color: iconColor.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(isTablet ? 12 : 10),
-                ),
-                child: Icon(
-                  icon,
-                  color: iconColor,
-                  size: isTablet ? 30 : 24,
-                ),
-              ),
-              SizedBox(width: isTablet ? 16 : 12),
-
-              // Content
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Badge
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: labelColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            label,
-                            style: TextStyle(
-                              color: labelColor,
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        // Tent ID
-                        Text(
-                          tentId,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: isTablet ? 18 : 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        if (location != null) ...[
-                          Text(
-                            location,
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.6),
-                              fontSize: 12,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            '•',
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.4),
-                              fontSize: 12,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
-                        ],
-                        Text(
-                          'عائلة: $familyName',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.7),
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(width: 12),
-
-              // Arrow
-              Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white.withOpacity(0.3),
-                size: 16,
-              ),
-            ],
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CampDetailsScreen(
+              campName: familyName,
+              tentId: tentId,
+            ),
           ),
-          if (members != null && phone != null && idNumber != null) ...[
-            const SizedBox(height: 16),
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.all(isTablet ? 20 : 16),
+        decoration: BoxDecoration(
+          color: const Color(0xFF1A2530),
+          borderRadius: BorderRadius.circular(isTablet ? 14 : 12),
+        ),
+        child: Column(
+          children: [
             Row(
               children: [
-                // Members
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF0F1419),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.people_outline,
-                          color: Colors.white.withOpacity(0.6),
-                          size: 16,
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          '$members أفراد',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.7),
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
+                // Icon
+                Container(
+                  padding: EdgeInsets.all(isTablet ? 16 : 12),
+                  decoration: BoxDecoration(
+                    color: iconColor.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(isTablet ? 12 : 10),
+                  ),
+                  child: Icon(
+                    icon,
+                    color: iconColor,
+                    size: isTablet ? 30 : 24,
                   ),
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: isTablet ? 16 : 12),
 
-                // Phone
+                // Content
                 Expanded(
-                  flex: 2,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            phone,
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.9),
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
+                          // Badge
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: labelColor.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              label,
+                              style: TextStyle(
+                                color: labelColor,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                          const SizedBox(width: 6),
+                          // Tent ID
                           Text(
-                            'رقم الجوال',
+                            tentId,
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.5),
-                              fontSize: 11,
+                              color: Colors.white,
+                              fontSize: isTablet ? 18 : 16,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(
-                            idNumber,
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.9),
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
+                          if (location != null) ...[
+                            Text(
+                              location,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.6),
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 6),
+                            const SizedBox(width: 4),
+                            Text(
+                              '•',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.4),
+                                fontSize: 12,
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                          ],
                           Text(
-                            'هوية',
+                            'عائلة: $familyName',
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.5),
-                              fontSize: 11,
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 12,
                             ),
                           ),
                         ],
@@ -611,10 +527,111 @@ class _TentsScreenState extends State<TentsScreen> {
                     ],
                   ),
                 ),
+
+                const SizedBox(width: 12),
+
+                // Arrow
+                Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white.withOpacity(0.3),
+                  size: 16,
+                ),
               ],
             ),
+            if (members != null && phone != null && idNumber != null) ...[
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  // Members
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0F1419),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.people_outline,
+                            color: Colors.white.withOpacity(0.6),
+                            size: 16,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            '$members أفراد',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+
+                  // Phone
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              phone,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.9),
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              'رقم الجوال',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.5),
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              idNumber,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.9),
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              'هوية',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.5),
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

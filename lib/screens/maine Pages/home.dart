@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smartcamp_gazarecovery/screens/maine%20Pages/tents.dart';
+import 'package:smartcamp_gazarecovery/utils/size_config.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -240,15 +241,82 @@ class DashboardScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: _bg,
+      appBar:
+
+      PreferredSize(
+        preferredSize: Size.fromHeight(SizeConfig.sh(context, 86)),
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: SizeConfig.sw(context, 16), vertical: SizeConfig.sh(context, 8)),
+            child: Container(
+              height: SizeConfig.sh(context, 70),
+              decoration: BoxDecoration(
+                color: _card,
+                borderRadius: BorderRadius.circular(SizeConfig.sw(context, 12)),
+                border: Border.all(color: Colors.white.withAlpha((0.02 * 255).round())),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: SizeConfig.sw(context, 8)),
+              child: Row(
+                children: [
+                  // menu (drawer)
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.menu, color: Colors.white70, size: SizeConfig.sp(context, 20)),
+                  ),
+                  const Spacer(),
+
+                  // notifications with small red dot
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.notifications_outlined, color: Colors.white70, size: SizeConfig.sp(context, 20)),
+                      ),
+                      Positioned(
+                        right: SizeConfig.sw(context, 12),
+                        top: SizeConfig.sh(context, 10),
+                        child: Container(
+                          width: SizeConfig.sw(context, 8),
+                          height: SizeConfig.sw(context, 8),
+                          decoration: BoxDecoration(
+                            color: Colors.redAccent,
+                            shape: BoxShape.circle,
+                            border: Border.all(color: _card, width: 1.2),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(width: SizeConfig.sw(context, 8)),
+
+                  // user avatar
+                  Container(
+                    width: SizeConfig.sw(context, 48),
+                    height: SizeConfig.sw(context, 48),
+                    decoration: BoxDecoration(
+                      color: Colors.green.shade700,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white.withAlpha((0.08 * 255).round()), width: 1.6),
+                    ),
+                    child: Icon(Icons.person, color: Colors.white, size: SizeConfig.sp(context, 20)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: SizeConfig.sw(context, 16)),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.only(bottom: 120),
+            padding: EdgeInsets.only(bottom: SizeConfig.sh(context, 120)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 12),
+                SizedBox(height: SizeConfig.sh(context, 12)),
                 // small top-left label outside the card like the screenshot
                 Align(
                   alignment: Alignment.topLeft,
@@ -260,175 +328,15 @@ class DashboardScreen extends StatelessWidget {
                   ),
                 ),
 
-                // Header: wrapped in a rounded dark card to match the screenshot
-                SizedBox(
-                  height:
-                      104, // fixed header height to match screenshot proportions
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
-                      decoration: BoxDecoration(
-                        color: _card,
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                            color:
-                                Colors.white.withAlpha((0.02 * 255).round())),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.35),
-                              blurRadius: 8,
-                              offset: const Offset(0, 4)),
-                        ],
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          // Avatar column (avatar + status pill)
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              // outer ring + avatar
-                              Stack(
-                                clipBehavior: Clip.none,
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(4),
-                                    decoration: BoxDecoration(
-                                      color: _card,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                          color: Colors.white
-                                              .withAlpha((0.08 * 255).round()),
-                                          width: 1.6),
-                                    ),
-                                    child: CircleAvatar(
-                                      radius:
-                                          26, // slightly larger to match screenshot scale
-                                      backgroundColor: Colors.green.shade700,
-                                      child: const Icon(Icons.person,
-                                          color: Colors.white, size: 20),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: -10,
-                                    top: -10,
-                                    child: Container(
-                                      width: 12,
-                                      height: 12,
-                                      decoration: BoxDecoration(
-                                        color: Colors.redAccent,
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                            color: _card, width: 1.6),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 6),
-                              // status pill
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 6),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF155C44),
-                                  borderRadius: BorderRadius.circular(18),
-                                ),
-                                child: Text('مكتمل',
-                                    style: GoogleFonts.cairo(
-                                        color: Colors.white70, fontSize: 12)),
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(
-                              width: 14), // tuned gap between avatar and title
-
-                          // Middle column: title and subtitle
-                          Expanded(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('مخيم الست اميرة',
-                                    style: GoogleFonts.cairo(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w800,
-                                        color: Colors.white)),
-                                const SizedBox(height: 6),
-                                Row(
-                                  children: [
-                                    const Icon(Icons.location_on_outlined,
-                                        size: 14, color: Colors.white54),
-                                    const SizedBox(width: 6),
-                                    Text('المنطقة الوسطى / البركة',
-                                        style: GoogleFonts.cairo(
-                                            fontSize: 12,
-                                            color: Colors.white54)),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          // Right icons: bell + menu (compact)
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Stack(
-                                clipBehavior: Clip.none,
-                                children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    padding: const EdgeInsets.all(8),
-                                    constraints: const BoxConstraints(
-                                        minWidth: 40, minHeight: 40),
-                                    icon: const Icon(
-                                        Icons.notifications_outlined,
-                                        color: Colors.white70),
-                                  ),
-                                  Positioned(
-                                    right: 8,
-                                    top: 6,
-                                    child: Container(
-                                      width: 8,
-                                      height: 8,
-                                      decoration: BoxDecoration(
-                                        color: Colors.redAccent,
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                            color: _card, width: 1.2),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                padding: const EdgeInsets.all(8),
-                                constraints: const BoxConstraints(
-                                    minWidth: 40, minHeight: 40),
-                                icon: const Icon(Icons.menu,
-                                    color: Colors.white70),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 18),
+                SizedBox(height: SizeConfig.sh(context, 18)),
 
                 // Grid of small stats (2 columns)
                 GridView.count(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   crossAxisCount: 2,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
+                  crossAxisSpacing: SizeConfig.sw(context, 12),
+                  mainAxisSpacing: SizeConfig.sh(context, 12),
                   // responsive aspect so cards have enough height on small screens
                   childAspectRatio: gridAspect,
                   children: [
@@ -449,48 +357,48 @@ class DashboardScreen extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 12),
+                SizedBox(height: SizeConfig.sh(context, 12)),
 
                 _bigCard(context, 'عدد ذوي الهمم', '65',
                     icon: Icons.accessible, accent: Colors.orange),
-                const SizedBox(height: 12),
+                SizedBox(height: SizeConfig.sh(context, 12)),
 
                 // Emergency row
                 Row(
                   children: [
                     Expanded(
                         child: _emergencyCard(context, 'احتياجات عاجلة', '3')),
-                    const SizedBox(width: 12),
+                    SizedBox(width: SizeConfig.sw(context, 12)),
                     Expanded(
                         child: _bigCard(context, 'عدد الخيام المجاورة', '50',
                             icon: Icons.home, accent: Colors.blue)),
                   ],
                 ),
 
-                const SizedBox(height: 14),
+                SizedBox(height: SizeConfig.sh(context, 14)),
 
                 // Colored small boxes (3)
                 Row(
                   children: [
                     Expanded(
                         child: _coloredBox('فئة أ', '15/160', Colors.green)),
-                    const SizedBox(width: 10),
+                    SizedBox(width: SizeConfig.sw(context, 10)),
                     Expanded(
                         child: _coloredBox('فئة ب', '60/100', Colors.orange)),
-                    const SizedBox(width: 10),
+                    SizedBox(width: SizeConfig.sw(context, 10)),
                     Expanded(child: _coloredBox('فئة ج', '45/50', Colors.red)),
                   ],
                 ),
 
-                const SizedBox(height: 18),
+                SizedBox(height: SizeConfig.sh(context, 18)),
 
                 // Quick actions grid
                 GridView.count(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   crossAxisCount: 2,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
+                  crossAxisSpacing: SizeConfig.sw(context, 12),
+                  mainAxisSpacing: SizeConfig.sh(context, 12),
                   childAspectRatio: actionAspect,
                   children: [
                     _actionCard(context, 'الإبلاغ عن احتياج',
@@ -504,7 +412,7 @@ class DashboardScreen extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 18),
+                SizedBox(height: SizeConfig.sh(context, 18)),
 
                 // Infrastructure row
                 Row(
@@ -512,18 +420,18 @@ class DashboardScreen extends StatelessWidget {
                     Expanded(
                         child: _statusBox(
                             context, 'مياه للاستخدام', 'متوفرة', Colors.blue)),
-                    const SizedBox(width: 12),
+                    SizedBox(width: SizeConfig.sw(context, 12)),
                     Expanded(
                         child: _statusBox(
                             context, 'مياه الشرب', 'لا تتوفر', Colors.red)),
-                    const SizedBox(width: 12),
+                    SizedBox(width: SizeConfig.sw(context, 12)),
                     Expanded(
                         child: _statusBox(
                             context, 'الحمامات', 'متوفر(3)', Colors.green)),
                   ],
                 ),
 
-                const SizedBox(height: 18),
+                SizedBox(height: SizeConfig.sh(context, 18)),
 
                 // Highlights (list)
                 Column(
@@ -531,16 +439,16 @@ class DashboardScreen extends StatelessWidget {
                   children: [
                     _highlightTile(context, 'نقص حاد في المياه',
                         'تم الإبلاغ منذ ساعتين', Colors.redAccent, 'عاجل جداً'),
-                    const SizedBox(height: 10),
+                    SizedBox(height: SizeConfig.sh(context, 10)),
                     _highlightTile(context, 'مستلزمات طبية',
                         'تم الإبلاغ منذ 5 ساعات', Colors.orangeAccent, 'متوسط'),
-                    const SizedBox(height: 10),
+                    SizedBox(height: SizeConfig.sh(context, 10)),
                     _highlightTile(context, 'توزيع سلال غذائية',
                         'تم الإبلاغ منذ يوم', Colors.green, 'مجدول'),
                   ],
                 ),
 
-                const SizedBox(height: 80),
+                SizedBox(height: SizeConfig.sh(context, 80)),
               ],
             ),
           ),
