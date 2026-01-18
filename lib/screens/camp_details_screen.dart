@@ -218,7 +218,6 @@ class _CampDetailsScreenState extends State<CampDetailsScreen> {
                   padding: EdgeInsets.symmetric(horizontal: SizeConfig.sw(context, 16), vertical: SizeConfig.sh(context, 14)),
                   decoration: BoxDecoration(
                     color: _bg,
-                    borderRadius: BorderRadius.circular(SizeConfig.sw(context, 10)),
                     border: Border.all(color: Colors.white.withOpacity(0.1)),
                   ),
                    child: Text(
