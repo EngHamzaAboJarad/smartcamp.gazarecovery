@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
+import 'family_details_screen.dart';
 import 'maine Pages/tents.dart';
 import 'maine Pages/assistance.dart';
 
@@ -15,7 +16,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   // قائمة الصفحات
   final List<Widget> _pages = [
-    const AccountScreen(), // حساب - الفهرس 0
+    const FamilyDetailsScreen(), // حساب - تفاصيل العائلة
     const AssistanceScreen(), // المساعدات - الفهرس 1
     const TentsScreen(), // الخيام - الفهرس 2
     const DashboardScreen(), // الرئيسية - الفهرس 3
@@ -57,33 +58,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             label: 'الرئيسية',
           ),
         ],
-      ),
-    );
-  }
-}
-
-// صفحة الحساب (مؤقتة)
-class AccountScreen extends StatelessWidget {
-  const AccountScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0F1419),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF0F1419),
-        elevation: 0,
-        title: const Text(
-          'حساب',
-          style: TextStyle(color: Colors.white70),
-        ),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'صفحة الحساب',
-          style: TextStyle(color: Colors.white, fontSize: 20),
-        ),
       ),
     );
   }
