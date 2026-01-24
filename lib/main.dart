@@ -13,6 +13,7 @@ import 'package:smartcamp_gazarecovery/features/main/presentation/cubit/main_cub
 import 'package:smartcamp_gazarecovery/features/splash/presentation/cubit/splash_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/tents/presentation/cubit/tents_cubit.dart';
 import 'package:smartcamp_gazarecovery/core/dio_helper.dart';
+import 'package:smartcamp_gazarecovery/shared/constants.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => TentsCubit()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: appName,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           brightness: Brightness.dark,
