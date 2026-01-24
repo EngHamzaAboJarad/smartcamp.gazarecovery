@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smartcamp_gazarecovery/core/routes.dart';
-import 'package:smartcamp_gazarecovery/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:smartcamp_gazarecovery/features/auth/presentation/cubit/auth_state.dart';
 import 'package:smartcamp_gazarecovery/features/login/presentation/cubit/login_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/login/presentation/cubit/login_state.dart';
-import 'package:flutter/foundation.dart';
 import 'package:smartcamp_gazarecovery/shared/constants.dart';
 import 'package:smartcamp_gazarecovery/shared/utils/size_config.dart';
+import 'package:smartcamp_gazarecovery/shared/widgets/top_floating_message.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,23 +15,41 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String? _userError;
+  String? _passError;
+
+  @override
+  void initState() {
+    super.initState();
+    // Attach listeners to clear errors once the user starts typing
+    final cubit = context.read<LoginCubit>();
+    cubit.userController.addListener(() {
+      if (_userError != null && cubit.userController.text.trim().isNotEmpty) {
+        setState(() => _userError = null);
+      }
+    });
+    cubit.passController.addListener(() {
+      if (_passError != null && cubit.passController.text.isNotEmpty) {
+        setState(() => _passError = null);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // Debug FAB to quickly test the login endpoint with the sample payload
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: BlocListener<AuthCubit, AuthState>(
+        child: BlocListener<LoginCubit, LoginState>(
           listener: (context, state) {
-            if (state is AuthLoading) {
+            if (state is LoginLoading) {
               // Optionally show a loading indicator via a dialog/snackbar
-            } else if (state is AuthSuccess) {
+            } else if (state is LoginSuccess) {
               // Navigate to home on success
-              Navigator.of(context).pushReplacementNamed(AppRoutes.home);
-            } else if (state is AuthError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
+              Navigator.of(context).pushReplacementNamed(AppRoutes.MainNavigationScreen);
+            } else if (state is LoginError) {
+              showTopFloatingMessage(context, state.message, isError: true);
             }
           },
           child: BlocListener<LoginCubit, LoginState>(
@@ -50,17 +66,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.of(context, rootNavigator: true).pop();
                 }
                 // Navigate to dashboard on login success and pass the parsed user data
-                Navigator.of(context).pushReplacementNamed(
-                  AppRoutes.dashboard,
-                  arguments: state.userData,
+                Navigator.of(context).pushNamed(
+                  AppRoutes.OtpScreen,
+                  arguments: state.userphone,
                 );
               } else if (state is LoginError) {
                 if (Navigator.of(context, rootNavigator: true).canPop()) {
                   Navigator.of(context, rootNavigator: true).pop();
                 }
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)),
-                );
+                showTopFloatingMessage(context, state.message, isError: true);
               }
             },
             child: SingleChildScrollView(
@@ -118,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        'رقم الهوية',
+                        'رقم الهوية|رقم الجوال',
                         style: TextStyle(
                           fontFamily: fontFamilyInt,
                           fontSize: SizeConfig.sh(context, getNewNum(25)),
@@ -137,6 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintStyle: TextStyle(color: Colors.grey.shade500),
                         filled: true,
                         fillColor: const Color(0xFF0F1720),
+                        errorText: _userError,
                         contentPadding: EdgeInsets.symmetric(
                           vertical: SizeConfig.sh(context, getNewNum(16)),
                           horizontal: SizeConfig.sw(context, getNewNum(12)),
@@ -160,48 +175,49 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: SizeConfig.sh(context, getNewNum(24)),
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        'كلمة المرور',
-                        style: TextStyle(
-                          fontFamily: fontFamilyInt,
-                          fontSize: SizeConfig.sh(context, getNewNum(25)),
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: SizeConfig.sh(context, getNewNum(8))),
-                    TextField(
-                      controller: context.read<LoginCubit>().passController,
-                      keyboardType: TextInputType.text,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: '********',
-                        hintStyle: TextStyle(color: Colors.grey.shade500),
-                        filled: true,
-                        fillColor: const Color(0xFF0F1720),
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: SizeConfig.sh(context, getNewNum(16)),
-                          horizontal: SizeConfig.sw(context, getNewNum(12)),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          borderSide: BorderSide.none,
-                        ),
-                        // The icon shown inside the field. In RTL this will appear on the left automatically,
-                        // but text is aligned to the right like in the screenshot.
-                        suffixIcon: Padding(
-                          padding: EdgeInsets.only(
-                              right: SizeConfig.sw(context, getNewNum(10))),
-                          child: Icon(
-                            Icons.lock,
-                            color: Colors.grey.shade500,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Align(
+                    //   alignment: Alignment.centerRight,
+                    //   child: Text(
+                    //     'كلمة المرور',
+                    //     style: TextStyle(
+                    //       fontFamily: fontFamilyInt,
+                    //       fontSize: SizeConfig.sh(context, getNewNum(25)),
+                    //       color: Colors.white,
+                    //       fontWeight: FontWeight.w600,
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: SizeConfig.sh(context, getNewNum(8))),
+                    // TextField(
+                    //   controller: context.read<LoginCubit>().passController,
+                    //   keyboardType: TextInputType.text,
+                    //   textAlign: TextAlign.right,
+                    //   decoration: InputDecoration(
+                    //     hintText: '********',
+                    //     hintStyle: TextStyle(color: Colors.grey.shade500),
+                    //     filled: true,
+                    //     fillColor: const Color(0xFF0F1720),
+                    //     errorText: _passError,
+                    //     contentPadding: EdgeInsets.symmetric(
+                    //       vertical: SizeConfig.sh(context, getNewNum(16)),
+                    //       horizontal: SizeConfig.sw(context, getNewNum(12)),
+                    //     ),
+                    //     border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.circular(14),
+                    //       borderSide: BorderSide.none,
+                    //     ),
+                    //     // The icon shown inside the field. In RTL this will appear on the left automatically,
+                    //     // but text is aligned to the right like in the screenshot.
+                    //     suffixIcon: Padding(
+                    //       padding: EdgeInsets.only(
+                    //           right: SizeConfig.sw(context, getNewNum(10))),
+                    //       child: Icon(
+                    //         Icons.lock,
+                    //         color: Colors.grey.shade500,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(height: SizeConfig.sh(context, getNewNum(100))),
                     ElevatedButton(
                       style: ButtonStyle(
@@ -219,10 +235,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       onPressed: () {
                         final cubit = context.read<LoginCubit>();
-                        cubit.userController.text = '+972567077653'; // ID-10001 sample
-                        cubit.passController.text = 'password';
-                        cubit.submitLogin();
-                       },
+                        final loginVal = cubit.userController.text.trim();
+                        // final passVal = cubit.passController.text;
+                        bool hasError = false;
+                        if (loginVal.isEmpty) {
+                          _userError = 'الرجاء إدخال اسم المستخدم';
+                          hasError = true;
+                        }
+                        // if (passVal.isEmpty) {
+                        //   _passError = 'الرجاء إدخال كلمة المرور';
+                        //   hasError = true;
+                        // }
+                        if (hasError) {
+                          setState(() {});
+                          showTopFloatingMessage(context, 'الرجاء إدخال الحقول المطلوبة', isError: true);
+                          return;
+                        }
+                        cubit.submitLogin(context);
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

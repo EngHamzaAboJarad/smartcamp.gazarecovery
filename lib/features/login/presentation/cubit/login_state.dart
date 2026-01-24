@@ -17,11 +17,11 @@ class LoginLoading extends LoginState {
 }
 
 class LoginSuccess extends LoginState {
-  final DataUserModel userData;
-  const LoginSuccess({required this.userData});
+  final String userphone;
+  const LoginSuccess({required this.userphone});
 
   @override
-  List<Object?> get props => [userData];
+  List<Object?> get props => [userphone];
 }
 
 class LoginError extends LoginState {

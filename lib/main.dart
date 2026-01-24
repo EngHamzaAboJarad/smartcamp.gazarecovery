@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smartcamp_gazarecovery/core/routes.dart';
 import 'package:smartcamp_gazarecovery/core/app_router.dart';
-import 'package:smartcamp_gazarecovery/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/home/presentation/cubit/home_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/assistance/presentation/cubit/assistance_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/dashboard/presentation/cubit/dashboard_cubit.dart';
@@ -10,6 +9,7 @@ import 'package:smartcamp_gazarecovery/features/details/presentation/cubit/detai
 import 'package:smartcamp_gazarecovery/features/family/presentation/cubit/family_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/login/presentation/cubit/login_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/main/presentation/cubit/main_cubit.dart';
+import 'package:smartcamp_gazarecovery/features/otp/presentation/cubit/otp_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/splash/presentation/cubit/splash_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/tents/presentation/cubit/tents_cubit.dart';
 import 'package:smartcamp_gazarecovery/core/dio_helper.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => AuthCubit()),
+        BlocProvider(create: (_) => OtpCubit()),
         BlocProvider(create: (_) => HomeCubit()),
         BlocProvider(create: (_) => AssistanceCubit()),
         BlocProvider(create: (_) => DashboardCubit()),
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => TentsCubit()),
       ],
       child: MaterialApp(
-        title: appName,
+         title: appName,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           brightness: Brightness.dark,

@@ -4,14 +4,14 @@ import 'package:smartcamp_gazarecovery/core/http_client.dart';
 
 /// DioHelper centralizes Dio initialization and token persistence.
 /// It delegates actual Dio configuration to `HttpClient` and persists the
-/// auth token using `flutter_secure_storage` so it can be restored at startup.
+/// otp token using `flutter_secure_storage` so it can be restored at startup.
 class DioHelper {
   DioHelper._();
 
   static const String _kAuthTokenKey = 'auth_token';
   static final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
-  /// Initialize the Dio client helper. This reads a stored auth token (if any)
+  /// Initialize the Dio client helper. This reads a stored otp token (if any)
   /// and sets it to the `HttpClient`. It also forces the HttpClient.instance
   /// to be created so interceptors are applied.
   static Future<void> init() async {

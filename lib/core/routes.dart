@@ -9,5 +9,9 @@ class AppRoutes {
   static const String assistance = '/assistance';
   static const String tents = '/tents';
   static const String campDetails = '/camp_details';
+  static const String AddFamilyScreen = '/AddFamilyScreen';
+  static const String OtpScreen = '/OtpScreen'; // generic typed details page
   static const String details = '/details'; // generic typed details page
+  static const String SettingsScreen = '/SettingsScreen'; // generic typed details page
+  static const String MainNavigationScreen = '/MainNavigationScreen'; // generic typed details page
 }

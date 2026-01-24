@@ -1,32 +1,24 @@
 import 'package:equatable/equatable.dart';
+import '../../data/models/dashboard_model.dart';
 
 abstract class DashboardState extends Equatable {
   const DashboardState();
-
   @override
   List<Object?> get props => [];
 }
 
-class DashboardInitial extends DashboardState {
-  const DashboardInitial();
-}
-
-class DashboardLoading extends DashboardState {
-  const DashboardLoading();
-}
-
+class DashboardInitial extends DashboardState {}
+class DashboardLoading extends DashboardState {}
 class DashboardLoaded extends DashboardState {
-  final Map<String, dynamic> stats;
-  const DashboardLoaded({required this.stats});
-
+  final DashboardModel dashboard;
+  const DashboardLoaded(this.dashboard);
   @override
-  List<Object?> get props => [stats];
+  List<Object?> get props => [dashboard];
 }
 
 class DashboardError extends DashboardState {
   final String message;
-  const DashboardError({required this.message});
-
+  const DashboardError(this.message);
   @override
   List<Object?> get props => [message];
 }

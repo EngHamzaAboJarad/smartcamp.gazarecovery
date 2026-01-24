@@ -118,7 +118,9 @@ class _TentsScreenState extends State<TentsScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.AddFamilyScreen);
+        },
         backgroundColor: const Color(0xFF2196F3),
         icon: Icon(
           Icons.add_location_alt_outlined,

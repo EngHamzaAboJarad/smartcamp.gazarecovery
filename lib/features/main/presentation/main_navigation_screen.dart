@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:smartcamp_gazarecovery/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:smartcamp_gazarecovery/features/family/presentation/family.dart';
 import 'package:smartcamp_gazarecovery/features/assistance/presentation/assistance.dart';
+import 'package:smartcamp_gazarecovery/features/settings/presentation/settings_screen.dart';
 import 'package:smartcamp_gazarecovery/features/tents/presentation/tents.dart';
-import 'package:smartcamp_gazarecovery/features/dashboard/presentation/dashboard.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -16,7 +17,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   // قائمة الصفحات
   final List<Widget> _pages = [
-    const FamilyDetailsScreen(), // حساب - تفاصيل العائلة
+    const SettingsScreen(), // حساب - تفاصيل العائلة
     const AssistanceScreen(), // المساعدات - الفهرس 1
     const TentsScreen(), // الخيام - الفهرس 2
     const DashboardScreen(), // الرئيسية - الفهرس 3
