@@ -10,4 +10,5 @@ class AppRoutes {
   static const String tents = '/tents';
   static const String campDetails = '/camp_details';
   static const String details = '/details'; // generic typed details page
+  static const String MainNavigationScreen = '/MainNavigationScreen'; // generic typed details page
 }

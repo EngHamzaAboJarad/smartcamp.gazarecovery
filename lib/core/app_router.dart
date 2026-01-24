@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartcamp_gazarecovery/core/routes.dart';
+import 'package:smartcamp_gazarecovery/features/main/presentation/main_navigation_screen.dart';
 import '../features/splash/presentation/splash_screen.dart';
 import '../features/login/login_screen.dart';
 import '../features/home/home_screen.dart';
@@ -20,6 +21,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => DashboardScreen());
       case AppRoutes.home:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
+        case AppRoutes.MainNavigationScreen:
+        return MaterialPageRoute(builder: (_) => const MainNavigationScreen());
       case AppRoutes.details:
         if (args is DetailsArgs) {
           return MaterialPageRoute(

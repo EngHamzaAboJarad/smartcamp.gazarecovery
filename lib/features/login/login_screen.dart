@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
               // Optionally show a loading indicator via a dialog/snackbar
             } else if (state is AuthSuccess) {
               // Navigate to home on success
-              Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+              Navigator.of(context).pushReplacementNamed(AppRoutes.MainNavigationScreen);
             } else if (state is AuthError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
