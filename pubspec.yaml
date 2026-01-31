@@ -68,7 +68,11 @@ flutter:
     - images/icons/
     - images/icons/icon_need/
     - images/family_details_screen_images/
+<<<<<<< HEAD
+  #   - images/a_dot_ham.jpeg
+=======
     - images/
+>>>>>>> 857d14292e877c31485ce8f2684aa6afd5cbd0fa
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
