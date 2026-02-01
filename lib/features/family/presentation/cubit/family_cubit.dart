@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smartcamp_gazarecovery/shared/widgets/top_floating_message.dart';
@@ -46,7 +48,8 @@ class FamilyCubit extends Cubit<FamilyState> {
   final TextEditingController notesController = TextEditingController();
 
   // status (string) - default empty
-  final TextEditingController statusController = TextEditingController(text: 'occupied');
+  final TextEditingController statusController =
+      TextEditingController(text: 'occupied');
 
   // flags for elder indicators
   bool fatherIsOld = false;
@@ -60,7 +63,13 @@ class FamilyCubit extends Cubit<FamilyState> {
 
   FamilyCubit() : super(const FamilyInitial()) {
     // initialize camp controllers with the same keys used by the UI
-    for (final key in ['males', 'females', 'disabled', 'children_under_18', 'elderly']) {
+    for (final key in [
+      'males',
+      'females',
+      'disabled',
+      'children_under_18',
+      'elderly'
+    ]) {
       campControllers[key] = TextEditingController(text: '0');
     }
     // add a controller for total children count (occupants_children)
@@ -148,33 +157,29 @@ class FamilyCubit extends Cubit<FamilyState> {
             })
         .toList();
 
-    int parseInt(TextEditingController? ctl) => int.tryParse(ctl?.text ?? '') ?? 0;
+    int parseInt(TextEditingController? ctl) =>
+        int.tryParse(ctl?.text ?? '') ?? 0;
 
     final payload = {
       'name': tentController.text,
       'mobile_number': phoneController.text,
       'id_number': idController.text,
       'capacity_expected': parseInt(peopleController),
-
       'occupants_male_adults': parseInt(campControllers['males']),
       'occupants_female_adults': parseInt(campControllers['females']),
       'occupants_children': parseInt(campControllers['children']),
       'occupants_special_needs': parseInt(campControllers['disabled']),
       'less_than_18': parseInt(campControllers['children_under_18']),
       'old_people': parseInt(campControllers['elderly']),
-
       'father_full_name': familyNameController.text,
       'father_id': familyIdController.text,
       'father_is_old': fatherIsOld,
       'father_age': parseInt(familyAgeController),
-
       'mother_full_name': wifeNameController.text,
       'mother_id': wifeIdController.text,
       'mother_is_old': motherIsOld,
       'mother_age': parseInt(wifeAgeController),
-
       'children_details': childrenData,
-
       'status': statusController.text.isEmpty ? 'other' : statusController.text,
       'notes': notesController.text.isEmpty ? null : notesController.text,
     };
@@ -185,36 +190,37 @@ class FamilyCubit extends Cubit<FamilyState> {
     } catch (_) {}
 
     try {
-      final res = await HttpClient.post(ApiSettings.create_tents, data: payload);
+      final res =
+          await HttpClient.post(ApiSettings.create_tents, data: payload);
 
       final respData = res.data;
-      // Some backends return a numeric 'status_code' field in the JSON body.
-      // Check it first for the special 2001 code which indicates creation succeeded.
-      if (respData is Map && respData['status_code'] != null) {
+      log('respData => => ${respData}');
+
+      // If server responded with a 2xx status treat it as success and show a message
+      final statusCode = (res.statusCode ?? 0);
+      if (statusCode >= 200 && statusCode < 300) {
         try {
-          final code = int.tryParse(respData['status_code'].toString());
-          if (code == 2001) {
-            showTopFloatingMessage(context, '"status": "${'created_${respData['status_code']}_${respData['name']}'}"', isError: false);
-            // Clear the form on creation success, then return the sentinel.
+          if (respData is Map && respData['data'] is Map) {
+            final name = respData['data']['name'] ?? '';
+            final campId = respData['data']['camp_id'] ?? '';
+            showTopFloatingMessage(context,
+                'تمت الإضافة: ${name.toString().isNotEmpty ? name : campId}',
+                isError: false);
             clearForm();
+            emit(FamilySuccess());
+            return;
           }
         } catch (_) {}
-      }
-      // String? status;
-      // if (respData is Map && respData['status'] != null) {
-     // /**/ }
 
-      // if ((res.statusCode ?? 0) >= 200 && (res.statusCode ?? 0) < 300) {
-      //   if (status == 'occupied') {
-      //     return 'occupied';
-      //   } else {
-      //     await loadFamilies();
-      //     return status;
-      //   }
-      // } else {
-      //   await loadFamilies();
-      //   return null;
-      // }
+        // Fallback success message when body shape is unexpected
+        showTopFloatingMessage(context, 'تمت الإضافة بنجاح', isError: false);
+        clearForm();
+        emit(FamilySuccess());
+        return;
+      }
+
+      // previous behavior: if respData['data'] was a map we already handled it above
+
     } catch (e) {
       try {
         await loadFamilies();
@@ -235,11 +241,16 @@ class FamilyCubit extends Cubit<FamilyState> {
     peopleController.text = m['capacity_expected']?.toString() ?? '';
 
     // camp counts
-    campControllers['males']?.text = m['occupants_male_adults']?.toString() ?? '0';
-    campControllers['females']?.text = m['occupants_female_adults']?.toString() ?? '0';
-    campControllers['children']?.text = m['occupants_children']?.toString() ?? '0';
-    campControllers['disabled']?.text = m['occupants_special_needs']?.toString() ?? '0';
-    campControllers['children_under_18']?.text = m['less_than_18']?.toString() ?? '0';
+    campControllers['males']?.text =
+        m['occupants_male_adults']?.toString() ?? '0';
+    campControllers['females']?.text =
+        m['occupants_female_adults']?.toString() ?? '0';
+    campControllers['children']?.text =
+        m['occupants_children']?.toString() ?? '0';
+    campControllers['disabled']?.text =
+        m['occupants_special_needs']?.toString() ?? '0';
+    campControllers['children_under_18']?.text =
+        m['less_than_18']?.toString() ?? '0';
     campControllers['elderly']?.text = m['old_people']?.toString() ?? '0';
 
     // father

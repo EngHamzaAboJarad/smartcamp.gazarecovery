@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/size_config.dart';
+import 'package:smartcamp_gazarecovery/shared/utils/size_config.dart';
 
 // Asset paths used in this design (you can swap files as needed)
 const String _iconsDir = 'images/icons';
