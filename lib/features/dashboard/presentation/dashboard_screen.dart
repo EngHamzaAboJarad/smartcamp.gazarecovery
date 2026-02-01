@@ -193,7 +193,7 @@ class DashboardScreen extends StatelessWidget {
                       SizedBox(height: SizeConfig.sh(context, 12)),
                       BigCard(
                           label: 'كبار السن',
-                          value: 'غير متوفر',
+                          value: object!.numberOldPeople.toString(),
                           nameImage: 'man_peg',
                           accent: Colors.green.shade500),
                       SizedBox(height: SizeConfig.sh(context, 12)),

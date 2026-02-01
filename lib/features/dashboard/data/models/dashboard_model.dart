@@ -21,6 +21,7 @@ class DashboardData {
   final CampLocation? campLocation;
   final String? status;
   final int tentNumber;
+  final int numberOldPeople;
   final int numberOfIndividuals;
   final int familiesNumber;
   final int childrenNumbers;
@@ -32,6 +33,7 @@ class DashboardData {
   final int bathrooms;
   final Map<String, int> classification;
   final List<NeedModel> needs; // changed to typed list
+  final List<LatestNeed> latest_needs; // changed to typed list
   final InfrastructureItem? water;
   final InfrastructureItem? waterForDrinks;
 
@@ -40,6 +42,8 @@ class DashboardData {
     this.campLocation,
     this.status,
     required this.tentNumber,
+    required this.latest_needs,
+    required this.numberOldPeople,
     required this.numberOfIndividuals,
     required this.familiesNumber,
     required this.childrenNumbers,
@@ -85,14 +89,29 @@ class DashboardData {
       if (v is Map) return InfrastructureItem.fromJson(Map<String, dynamic>.from(v));
       return null;
     }
-
+// parse latest_needs into typed models
+    List<LatestNeed> latestNeedsList = [];
+    if (json['latest_needs'] is List) {
+      try {
+        latestNeedsList = (json['latest_needs'] as List)
+            .where((e) => e != null)
+            .map((e) => LatestNeed.fromJson(
+          Map<String, dynamic>.from(e as Map),
+        ))
+            .toList();
+      } catch (_) {
+        latestNeedsList = [];
+      }
+    }
     return DashboardData(
       campName: json['camp_name']?.toString(),
       campLocation: json['camp_location'] is Map
           ? CampLocation.fromJson(Map<String, dynamic>.from(json['camp_location']))
           : null,
+      latest_needs: latestNeedsList,
       status: json['status']?.toString(),
       tentNumber: (json['tent_number'] is int) ? json['tent_number'] as int : int.tryParse(json['tent_number']?.toString() ?? '') ?? 0,
+      numberOldPeople: (json['number_of_old_people'] is int) ? json['number_of_old_people'] as int : int.tryParse(json['number_of_old_people']?.toString() ?? '') ?? 0,
       numberOfIndividuals: (json['number_of_individuals'] is int) ? json['number_of_individuals'] as int : int.tryParse(json['number_of_individuals']?.toString() ?? '') ?? 0,
       familiesNumber: (json['families_number'] is int) ? json['families_number'] as int : int.tryParse(json['families_number']?.toString() ?? '') ?? 0,
       childrenNumbers: (json['children_numbers'] is int) ? json['children_numbers'] as int : int.tryParse(json['children_numbers']?.toString() ?? '') ?? 0,
@@ -109,7 +128,35 @@ class DashboardData {
     );
   }
 }
+class LatestNeed {
+  final String type;
+  final String status;
+  final DateTime? createdAt;
 
+  LatestNeed({
+    required this.type,
+    required this.status,
+    this.createdAt,
+  });
+
+  factory LatestNeed.fromJson(Map<String, dynamic> json) {
+    return LatestNeed(
+      type: json['type'] as String,
+      status: json['status'] as String,
+      createdAt: json['created_at'] != null
+          ? DateTime.parse(json['created_at'])
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type,
+      'status': status,
+      'created_at': createdAt?.toIso8601String(),
+    };
+  }
+}
 class CampLocation {
   final String? name;
   final String? city;

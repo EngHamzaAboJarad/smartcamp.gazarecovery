@@ -5,6 +5,8 @@ import 'package:smartcamp_gazarecovery/features/main/presentation/cubit/main_cub
 import 'package:smartcamp_gazarecovery/features/main/presentation/main_navigation_screen.dart';
 import 'package:smartcamp_gazarecovery/features/otp/presentation/cubit/otp_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/otp/presentation/otp_screen.dart';
+import 'package:smartcamp_gazarecovery/features/settings/presentation/edit_profile_screen.dart';
+import 'package:smartcamp_gazarecovery/features/settings/presentation/cubit/edit_profile_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/settings/presentation/settings_screen.dart';
 import '../features/family/presentation/add_family_screen.dart';
 import '../features/splash/presentation/splash_screen.dart';
@@ -34,6 +36,14 @@ class AppRouter {
       case AppRoutes.dashboard:
         // dashboard may receive a DataUserModel via route arguments
         return MaterialPageRoute(builder: (_) => DashboardScreen());
+      case AppRoutes.EditProfileScreen:
+        // Provide EditProfileCubit to the EditProfileScreen
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => EditProfileCubit(),
+            child: EditProfileScreen(),
+          ),
+        );
       case AppRoutes.AddFamilyScreen:
         // dashboard may receive a DataUserModel via route arguments
         return MaterialPageRoute(builder: (_) => AddFamilyScreen());

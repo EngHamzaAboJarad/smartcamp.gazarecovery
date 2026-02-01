@@ -13,5 +13,6 @@ class AppRoutes {
   static const String OtpScreen = '/OtpScreen'; // generic typed details page
   static const String details = '/details'; // generic typed details page
   static const String SettingsScreen = '/SettingsScreen'; // generic typed details page
+  static const String EditProfileScreen = '/EditProfileScreen'; // generic typed details page
   static const String MainNavigationScreen = '/MainNavigationScreen'; // generic typed details page
 }

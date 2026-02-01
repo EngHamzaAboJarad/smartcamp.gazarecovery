@@ -7,8 +7,6 @@ class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
   static const _darkCard = Color(0xFF0F1720);
-  static const _cardAccent = Color(0xFF132433);
-  static const _blue = Color(0xFF2F80ED);
   static const _red = Color(0xFFB84A4A);
 
   @override
@@ -22,10 +20,7 @@ class SettingsScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           centerTitle: true,
           title: const Text('الإعدادات'),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () => Navigator.of(context).maybePop(),
-          ),
+
         ),
         body: Container(
           decoration: const BoxDecoration(
@@ -46,32 +41,32 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(height: 18),
 
                   // ACCOUNT
-                  _buildSectionTitle('الحساب'),
-                  const SizedBox(height: 10),
-
-                  Container(
-                    decoration: BoxDecoration(
-                      color: _darkCard.withOpacity(0.6),
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: Column(
-                      children: [
-                        SettingsRow(
-                          icon: Icons.lock_outline,
-                          title: 'تغيير كلمة المرور',
-                          onTap: () {},
-                        ),
-                        const Divider(height: 0, thickness: 0.5, color: Colors.white12),
-                        SettingsRow(
-                          icon: Icons.shield_outlined,
-                          title: 'إعدادات الخصوصية',
-                          onTap: () {},
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
+                  // _buildSectionTitle('الحساب'),
+                  // const SizedBox(height: 10),
+                  //
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     color: const Color(0x990F1720),
+                  //     borderRadius: BorderRadius.circular(14),
+                  //   ),
+                  //   child: Column(
+                  //     children: [
+                  //       SettingsRow(
+                  //         icon: Icons.lock_outline,
+                  //         title: 'تغيير كلمة المرور',
+                  //         onTap: () {},
+                  //       ),
+                  //       const Divider(height: 0, thickness: 0.5, color: Colors.white12),
+                  //       SettingsRow(
+                  //         icon: Icons.shield_outlined,
+                  //         title: 'إعدادات الخصوصية',
+                  //         onTap: () {},
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  //
+                  // const SizedBox(height: 20),
 
                   // PREFERENCES
                   _buildSectionTitle('التفضيلات'),
@@ -79,19 +74,19 @@ class SettingsScreen extends StatelessWidget {
 
                   Container(
                     decoration: BoxDecoration(
-                      color: _darkCard.withOpacity(0.6),
+                      color: const Color(0x990F1720),
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Column(
                       children: [
-                        SettingsRow(
-                          icon: Icons.notifications_outlined,
-                          title: 'الإشعارات',
-                          trailingSwitch: true,
-                          switchValue: true,
-                          onSwitchChanged: (v) {},
-                        ),
-                        const Divider(height: 0, thickness: 0.5, color: Colors.white12),
+                        // SettingsRow(
+                        //   icon: Icons.notifications_outlined,
+                        //   title: 'الإشعارات',
+                        //   trailingSwitch: true,
+                        //   switchValue: true,
+                        //   onSwitchChanged: (v) {},
+                        // ),
+                        // const Divider(height: 0, thickness: 0.5, color: Colors.white12),
                         SettingsRow(
                           icon: Icons.language,
                           title: 'اللغة',
@@ -110,7 +105,7 @@ class SettingsScreen extends StatelessWidget {
 
                   Container(
                     decoration: BoxDecoration(
-                      color: _darkCard.withOpacity(0.6),
+                      color: const Color(0x990F1720),
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Column(
@@ -178,4 +173,3 @@ class SettingsScreen extends StatelessWidget {
         ),
       );
 }
-
