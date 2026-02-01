@@ -6,12 +6,18 @@ class CampGridItem extends StatelessWidget {
   final String title;
   final IconData icon;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final Key? fieldKey;
+  final bool readOnly;
 
   const CampGridItem({
     Key? key,
     required this.title,
     required this.icon,
     required this.controller,
+    this.validator,
+    this.fieldKey,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -48,16 +54,20 @@ class CampGridItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: Colors.white.withAlpha(8)),
                 ),
-                child: TextField(
+                child: TextFormField(
+                  key: fieldKey,
                   controller: controller,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                  validator: validator,
+                  readOnly: readOnly,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     isDense: true,
                     contentPadding: const EdgeInsets.symmetric(vertical: 6),
+                    errorStyle: const TextStyle(color: Colors.redAccent),
                   ),
                 ),
               ),
@@ -68,4 +78,3 @@ class CampGridItem extends StatelessWidget {
     );
   }
 }
-

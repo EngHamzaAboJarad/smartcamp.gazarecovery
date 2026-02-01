@@ -7,6 +7,8 @@ class InputField extends StatelessWidget {
   final TextInputType keyboardType;
   final int? maxLines;
   final bool rtl;
+  final String? Function(String?)? validator;
+  final Key? fieldKey;
 
   const InputField({
     Key? key,
@@ -16,6 +18,8 @@ class InputField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
     this.rtl = true,
+    this.validator,
+    this.fieldKey,
   }) : super(key: key);
 
   @override
@@ -23,27 +27,30 @@ class InputField extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.02),
+        color: const Color.fromRGBO(255, 255, 255, 0.02),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withOpacity(0.06)),
+        border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.06)),
       ),
       child: Row(
         children: [
           Icon(icon, color: Colors.white54),
           const SizedBox(width: 12),
           Expanded(
-            child: TextField(
+            child: TextFormField(
+              key: fieldKey,
               controller: controller,
               keyboardType: keyboardType,
               maxLines: maxLines,
               textAlign: rtl ? TextAlign.right : TextAlign.left,
               style: const TextStyle(color: Colors.white),
+              validator: validator,
               decoration: InputDecoration(
                 hintText: hint,
-                hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                hintStyle: const TextStyle(color: Color.fromRGBO(255, 255, 255, 0.5)),
                 border: InputBorder.none,
                 isDense: true,
                 contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                errorStyle: const TextStyle(color: Colors.redAccent),
               ),
             ),
           ),
@@ -52,4 +59,3 @@ class InputField extends StatelessWidget {
     );
   }
 }
-

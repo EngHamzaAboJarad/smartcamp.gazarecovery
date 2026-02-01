@@ -14,6 +14,9 @@ class FamilyInitial extends FamilyState {
 class FamilyLoading extends FamilyState {
   const FamilyLoading();
 }
+class FamilySuccess extends FamilyState {
+  const FamilySuccess();
+}
 
 class FamilyLoaded extends FamilyState {
   final List<Map<String, dynamic>> families;

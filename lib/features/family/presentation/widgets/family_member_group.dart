@@ -6,6 +6,12 @@ class FamilyMemberGroup extends StatelessWidget {
   final TextEditingController? nameController;
   final TextEditingController? idController;
   final TextEditingController? ageController;
+  final String? Function(String?)? nameValidator;
+  final String? Function(String?)? ageValidator;
+  final String? Function(String?)? idValidator;
+  final Key? nameFieldKey;
+  final Key? ageFieldKey;
+  final Key? idFieldKey;
 
   const FamilyMemberGroup({
     Key? key,
@@ -13,6 +19,12 @@ class FamilyMemberGroup extends StatelessWidget {
     this.nameController,
     this.idController,
     this.ageController,
+    this.nameValidator,
+    this.ageValidator,
+    this.idValidator,
+    this.nameFieldKey,
+    this.ageFieldKey,
+    this.idFieldKey,
   }) : super(key: key);
 
   @override
@@ -37,6 +49,8 @@ class FamilyMemberGroup extends StatelessWidget {
                   controller: nameController,
                   hint: 'الاسم',
                   icon: Icons.person,
+                  validator: nameValidator,
+                  fieldKey: nameFieldKey,
                 ),
               ),
               const SizedBox(width: 10),
@@ -46,6 +60,8 @@ class FamilyMemberGroup extends StatelessWidget {
                   hint: 'العمر',
                   icon: Icons.calendar_today,
                   keyboardType: TextInputType.number,
+                  validator: ageValidator,
+                  fieldKey: ageFieldKey,
                 ),
               ),
             ],
@@ -56,10 +72,11 @@ class FamilyMemberGroup extends StatelessWidget {
             hint: 'الهوية',
             icon: Icons.badge,
             keyboardType: TextInputType.number,
+            validator: idValidator,
+            fieldKey: idFieldKey,
           ),
         ],
       ),
     );
   }
 }
-
