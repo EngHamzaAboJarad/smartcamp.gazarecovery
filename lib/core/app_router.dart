@@ -26,7 +26,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case AppRoutes.OtpScreen:
         // If a credential (phone or id) was provided via Navigator.arguments, forward it to OtpScreen
-        final String? credentialArg = args is String ? args as String : null;
+        final String? credentialArg = args is String ? args : null;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => OtpCubit(),
@@ -37,10 +37,10 @@ class AppRouter {
         // dashboard may receive a DataUserModel via route arguments
         return MaterialPageRoute(builder: (_) => DashboardScreen());
       case AppRoutes.EditProfileScreen:
-        // Provide EditProfileCubit to the EditProfileScreen
+        // Provide EditProfileCubit to the EditProfileScreen and load profile immediately
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) => EditProfileCubit(),
+            create: (_) => EditProfileCubit()..loadProfile(),
             child: EditProfileScreen(),
           ),
         );
