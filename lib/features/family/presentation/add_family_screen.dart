@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smartcamp_gazarecovery/features/dashboard/presentation/cubit/dashboard_cubit.dart';
+import 'package:smartcamp_gazarecovery/features/dashboard/presentation/cubit/dashboard_state.dart';
 import 'package:smartcamp_gazarecovery/features/family/presentation/widgets/input_field.dart';
 // removed in-file widgets imports
 // new imports
@@ -29,12 +31,14 @@ class _AddFamilyScreenState extends State<AddFamilyScreen> {
   ];
 
   late final FamilyCubit _cubit;
+  late final DashboardCubit Dashboard_Cubit;
 
   @override
   void initState() {
     super.initState();
     _cubit = context.read<FamilyCubit>();
-    // Rebuild whenever the peopleController changes so the UI reflects
+    Dashboard_Cubit = context.read<DashboardCubit>();
+     // Rebuild whenever the peopleController changes so the UI reflects
     // the computed children count and the dynamic children list.
     _cubit.peopleController.addListener(_onPeopleChanged);
   }
@@ -162,10 +166,11 @@ class _AddFamilyScreenState extends State<AddFamilyScreen> {
                       ),
                       const SizedBox(height: 22),
                       // Save button (extracted)
-                      SaveButton(cubit: cubit, onSaved: () => cubit.validateAndSubmit(context)),
+                      SaveButton(cubit: cubit, onSaved: () => cubit.validateAndSubmit(context),Dashboard_Cubit: Dashboard_Cubit,),
                       const SizedBox(height: 40),
                     ],
-                  ),
+                  ),//final DashboardData? object =
+
                 ),
               ),
             ),

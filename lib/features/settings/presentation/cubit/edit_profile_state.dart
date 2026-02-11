@@ -24,6 +24,14 @@ class EditProfileSuccess extends EditProfileState {
   List<Object?> get props => [dataUser, message];
 }
 
+class EditProfileLoaded extends EditProfileState {
+  final DataUserModel? dataUser;
+  const EditProfileLoaded(this.dataUser);
+
+  @override
+  List<Object?> get props => [dataUser];
+}
+
 class EditProfileError extends EditProfileState {
   final String message;
   const EditProfileError(this.message);
@@ -31,4 +39,3 @@ class EditProfileError extends EditProfileState {
   @override
   List<Object?> get props => [message];
 }
-

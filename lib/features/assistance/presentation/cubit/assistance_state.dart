@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import '../../data/models/coming_helps_model.dart';
 
 abstract class AssistanceState extends Equatable {
   const AssistanceState();
@@ -16,11 +17,15 @@ class AssistanceLoading extends AssistanceState {
 }
 
 class AssistanceLoaded extends AssistanceState {
-  final List<String> items;
-  const AssistanceLoaded({required this.items});
+  final List<dynamic> items; // coming helps items (raw maps)
+  final List<HelpTypeCount> helpTypeCounts; // aggregated types across pages
+  final int totalTypes; // helpTypeCounts.length
+  final int totalItems; // sum of counts across helpTypeCounts
+
+  const AssistanceLoaded({required this.items, required this.helpTypeCounts, required this.totalTypes, required this.totalItems});
 
   @override
-  List<Object?> get props => [items];
+  List<Object?> get props => [items, helpTypeCounts, totalTypes, totalItems];
 }
 
 class AssistanceError extends AssistanceState {

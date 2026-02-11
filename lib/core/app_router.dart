@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smartcamp_gazarecovery/core/routes.dart';
+import 'package:smartcamp_gazarecovery/features/assistance/presentation/cubit/assistance_cubit.dart';
+import 'package:smartcamp_gazarecovery/features/dashboard/presentation/cubit/dashboard_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/main/presentation/cubit/main_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/main/presentation/main_navigation_screen.dart';
 import 'package:smartcamp_gazarecovery/features/otp/presentation/cubit/otp_cubit.dart';
@@ -26,7 +28,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case AppRoutes.OtpScreen:
         // If a credential (phone or id) was provided via Navigator.arguments, forward it to OtpScreen
-        final String? credentialArg = args is String ? args as String : null;
+        final String? credentialArg = args is String ? args : null;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => OtpCubit(),
@@ -37,10 +39,10 @@ class AppRouter {
         // dashboard may receive a DataUserModel via route arguments
         return MaterialPageRoute(builder: (_) => DashboardScreen());
       case AppRoutes.EditProfileScreen:
-        // Provide EditProfileCubit to the EditProfileScreen
+        // Provide EditProfileCubit to the EdProfileScreen and load profile immediately
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) => EditProfileCubit(),
+            create: (_) => EditProfileCubit()..loadProfile(),
             child: EditProfileScreen(),
           ),
         );
@@ -60,6 +62,9 @@ class AppRouter {
                   BlocProvider<MainCubit>(
                     create: (BuildContext context) => MainCubit(),
                   ),
+                   BlocProvider<AssistanceCubit>(
+                    create: (BuildContext context) => AssistanceCubit(),
+                  )
                 ], child: MainNavigationScreen()));
       case AppRoutes.details:
         if (args is DetailsArgs) {

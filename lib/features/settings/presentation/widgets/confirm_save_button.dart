@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class ConfirmSaveButton extends StatelessWidget {
   final bool isLoading;
   final Future<void> Function() onConfirmed;
+  final GlobalKey<FormState>? formKey;
 
-  const ConfirmSaveButton({Key? key, required this.isLoading, required this.onConfirmed}) : super(key: key);
+  const ConfirmSaveButton({Key? key, required this.isLoading, required this.onConfirmed, this.formKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,11 @@ class ConfirmSaveButton extends StatelessWidget {
         onPressed: isLoading
             ? null
             : () async {
+                // Validate form if a key was provided; if invalid, don't show confirmation
+                if (formKey != null) {
+                  final valid = formKey!.currentState?.validate() ?? true;
+                  if (!valid) return;
+                }
                 final confirmed = await showDialog<bool>(
                   context: context,
                   barrierDismissible: false,

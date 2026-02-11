@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smartcamp_gazarecovery/features/dashboard/presentation/cubit/dashboard_cubit.dart';
 import 'package:smartcamp_gazarecovery/shared/widgets/top_floating_message.dart';
 import 'family_state.dart';
 import 'package:smartcamp_gazarecovery/core/http_client.dart';
@@ -170,7 +171,7 @@ class FamilyCubit extends Cubit<FamilyState> {
     if (!valid) return false;
 
     try {
-      await createTent(context);
+      await createTent(context,context.read<DashboardCubit>().currentDashboard!.data!.id.toString());
       return true;
     } catch (_) {
       return false;
@@ -381,7 +382,7 @@ class FamilyCubit extends Cubit<FamilyState> {
   ///
   /// Returns the backend `status` string when present (for example 'occupied').
   /// On success emits [FamilySuccess]. On failure emits [FamilyError] and rethrows.
-  Future<String> createTent(context) async {
+  Future<String> createTent(context,id) async {
     emit(const FamilyLoading());
 
     final payload = _buildCreateTentPayload();
@@ -392,7 +393,7 @@ class FamilyCubit extends Cubit<FamilyState> {
     } catch (_) {}
 
     try {
-      final res = await HttpClient.post(ApiSettings.create_tents, data: payload);
+      final res = await HttpClient.post(ApiSettings.create_tents.replaceAll('id', id.toString()), data: payload);
 
       final respData = res.data;
       log('respData => => ${respData}');

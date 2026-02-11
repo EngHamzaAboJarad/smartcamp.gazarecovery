@@ -9,7 +9,8 @@ class ApiSettings {
   static const String verify_otp = '${_baseUrl}manager/verify-otp';
   static const String profile = '${_baseUrl}manager/profile';
   static const String home = '${_baseUrl}manager/dashboard/home';
-  static const String create_tents = '${_baseUrl}manager/camps/19/tents';
+  static const String create_tents = '${_baseUrl}manager/camps/id/tents';
+  static const String coming_helps = '${_baseUrl}manager/camps/id/coming-helps';
   // Returns a full endpoint URL by joining the baseUrl with the provided path.
   // Example: ApiSettings.endpoint('
   //

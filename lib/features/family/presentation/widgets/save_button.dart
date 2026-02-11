@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smartcamp_gazarecovery/features/dashboard/presentation/cubit/dashboard_cubit.dart';
 import 'package:smartcamp_gazarecovery/features/family/presentation/cubit/family_cubit.dart';
 
 class SaveButton extends StatelessWidget {
   final FamilyCubit cubit;
+  final DashboardCubit Dashboard_Cubit;
   final Future<void> Function()? onSaved;
 
-  const SaveButton({Key? key, required this.cubit, this.onSaved}) : super(key: key);
+  const SaveButton({Key? key, required this.cubit, required this.Dashboard_Cubit, this.onSaved}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class SaveButton extends StatelessWidget {
           await onSaved!();
         } else {
           try {
-            await cubit.createTent(context);
+            await cubit.createTent(context,Dashboard_Cubit.currentDashboard!.data!.id);
           } catch (_) {}
         }
       },

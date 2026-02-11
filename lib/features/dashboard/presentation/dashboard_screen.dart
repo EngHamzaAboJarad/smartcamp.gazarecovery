@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smartcamp_gazarecovery/core/api_settings.dart';
 import 'package:smartcamp_gazarecovery/shared/constants.dart';
 import 'package:smartcamp_gazarecovery/shared/utils/size_config.dart';
 import 'package:smartcamp_gazarecovery/shared/widgets/custom_app_bar.dart';
@@ -182,208 +183,208 @@ class DashboardScreen extends StatelessWidget {
                         ],
                       ),
 
-                      SizedBox(height: SizeConfig.sh(context, 12)),
+                    SizedBox(height: SizeConfig.sh(context, 12)),
 
-                      BigCard(
-                        label: 'عدد ذوي الهمم',
-                        value: (object?.numberOfPeopleWithDisabilities ?? 0)
-                            .toString(),
-                        nameImage: 'image',
-                      ),
-                      SizedBox(height: SizeConfig.sh(context, 12)),
-                      BigCard(
-                          label: 'كبار السن',
-                          value: object!.numberOldPeople.toString(),
-                          nameImage: 'man_peg',
-                          accent: Colors.green.shade500),
-                      SizedBox(height: SizeConfig.sh(context, 12)),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: BigCard(
-                                  label: 'عدد الخيام المجاورة',
-                                  value: (object?.numberOfAdjacentTents ?? 0).toString(),
-                                  nameImage: 'image2')),
-                          SizedBox(
-                            width: SizeConfig.sw(context, 15),
-                          ),
-                          Expanded(
-                              child: BigCard(
-                                  label: 'عدد العائلات فالمباني',
-                                  value: (object?.numberOfFamiliesInBuildings ?? 0)
-                                      .toString(),
-                                  nameImage: 'image3',
-                                  accent: Colors.blue)),
-                        ],
-                      ),
+                    BigCard(
+                      label: 'عدد ذوي الهمم',
+                      value: (object?.numberOfPeopleWithDisabilities ?? 0)
+                          .toString(),
+                      nameImage: 'image',
+                    ),
+                    SizedBox(height: SizeConfig.sh(context, 12)),
+                    BigCard(
+                        label: 'كبار السن',
+                        value: object!.numberOldPeople.toString(),
+                        nameImage: 'man_peg',
+                        accent: Colors.green.shade500),
+                    SizedBox(height: SizeConfig.sh(context, 12)),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: BigCard(
+                                label: 'عدد الخيام المجاورة',
+                                value: (object?.numberOfAdjacentTents ?? 0).toString(),
+                                nameImage: 'image2')),
+                        SizedBox(
+                          width: SizeConfig.sw(context, 15),
+                        ),
+                        Expanded(
+                            child: BigCard(
+                                label: 'عدد العائلات فالمباني',
+                                value: (object?.numberOfFamiliesInBuildings ?? 0)
+                                    .toString(),
+                                nameImage: 'image3',
+                                accent: Colors.blue)),
+                      ],
+                    ),
 
-                      SizedBox(height: SizeConfig.sh(context, 14)),
+                    SizedBox(height: SizeConfig.sh(context, 14)),
 
-                      Row(
-                        children: [
-                          Expanded(
-                              child: InfoBox(
-                                  title: 'A فئة',
-                                  subtitle: (object != null
-                                      ? (object.classification['A'] ?? 0)
-                                          .toString()
-                                      : '0'),
-                                  borderColor: Colors.green)),
-                          SizedBox(width: SizeConfig.sw(context, 10)),
-                          Expanded(
-                              child: InfoBox(
-                                  title: 'B فئة',
-                                  subtitle: (object != null
-                                      ? (object.classification['B'] ?? 0)
-                                          .toString()
-                                      : '0'),
-                                  borderColor: Colors.orange)),
-                          SizedBox(width: SizeConfig.sw(context, 10)),
-                          Expanded(
-                              child: InfoBox(
-                                  title: 'C فئة',
-                                  subtitle: (object != null
-                                      ? (object.classification['C'] ?? 0)
-                                          .toString()
-                                      : '0'),
-                                  borderColor: Colors.red)),
-                        ],
-                      ),
-                      SizedBox(height: SizeConfig.sh(context, 18)),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            'تصنيف العائلات',
-                            style: TextStyle(
-                                fontFamily: fontFamilyInt,
-                                fontSize: SizeConfig.sp(context, 22)),
-                          ),
-                          SizedBox(width: SizeConfig.sh(context, 18)),
-                          Image.asset(
-                            'images/classification.png',
-                            width: SizeConfig.sw(context, getNewNum(35)),
-                            height: SizeConfig.sh(context, getNewNum(35)),
-                          )
-                        ],
-                      ),
-                      GridView.count(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 12,
-                        childAspectRatio: actionAspect,
-                        children: [
-                          ActionCard(
-                              title: 'الإبلاغ عن احتياج',
-                              icon: Icons.notifications_active,
-                              color: Colors.blueAccent),
-                          ActionCard(
-                              title: 'تحديث البيانات',
-                              icon: Icons.edit,
-                              color: Colors.teal),
-                          ActionCard(
-                              title: 'الدعم الفني',
-                              icon: Icons.support_agent,
-                              color: Colors.amber),
-                          ActionCard(
-                              title: 'الخيام في المخيم',
-                              icon: Icons.home_work,
-                              color: Colors.indigo),
-                        ],
-                      ),
-
-                      SizedBox(height: SizeConfig.sh(context, 18)),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'البنية التحتية للمخيم',
+                    Row(
+                      children: [
+                        Expanded(
+                            child: InfoBox(
+                                title: 'A فئة',
+                                subtitle: (object != null
+                                    ? (object.classification['A'] ?? 0)
+                                        .toString()
+                                    : '0'),
+                                borderColor: Colors.green)),
+                        SizedBox(width: SizeConfig.sw(context, 10)),
+                        Expanded(
+                            child: InfoBox(
+                                title: 'B فئة',
+                                subtitle: (object != null
+                                    ? (object.classification['B'] ?? 0)
+                                        .toString()
+                                    : '0'),
+                                borderColor: Colors.orange)),
+                        SizedBox(width: SizeConfig.sw(context, 10)),
+                        Expanded(
+                            child: InfoBox(
+                                title: 'C فئة',
+                                subtitle: (object != null
+                                    ? (object.classification['C'] ?? 0)
+                                        .toString()
+                                    : '0'),
+                                borderColor: Colors.red)),
+                      ],
+                    ),
+                    SizedBox(height: SizeConfig.sh(context, 18)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'تصنيف العائلات',
                           style: TextStyle(
                               fontFamily: fontFamilyInt,
                               fontSize: SizeConfig.sp(context, 22)),
                         ),
+                        SizedBox(width: SizeConfig.sh(context, 18)),
+                        Image.asset(
+                          'images/classification.png',
+                          width: SizeConfig.sw(context, getNewNum(35)),
+                          height: SizeConfig.sh(context, getNewNum(35)),
+                        )
+                      ],
+                    ),
+                    GridView.count(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: actionAspect,
+                      children: [
+                        ActionCard(
+                            title: 'الإبلاغ عن احتياج',
+                            icon: Icons.notifications_active,
+                            color: Colors.blueAccent),
+                        ActionCard(
+                            title: 'تحديث البيانات',
+                            icon: Icons.edit,
+                            color: Colors.teal),
+                        ActionCard(
+                            title: 'الدعم الفني',
+                            icon: Icons.support_agent,
+                            color: Colors.amber),
+                        ActionCard(
+                            title: 'الخيام في المخيم',
+                            icon: Icons.home_work,
+                            color: Colors.indigo),
+                      ],
+                    ),
+
+                    SizedBox(height: SizeConfig.sh(context, 18)),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'البنية التحتية للمخيم',
+                        style: TextStyle(
+                            fontFamily: fontFamilyInt,
+                            fontSize: SizeConfig.sp(context, 22)),
                       ),
-                      SizedBox(height: SizeConfig.sh(context, 8)),
-                      // Infrastructure row
-                      Row(
-                        children: [
-                          Expanded(
-                              child: StatusBox(
-                                  imageName: 'image.png',
-                                  title: 'مياه للاستخدام',
-                                  status: object!.water!.available == false
-                                      ? 'لا تتوفر'
-                                      : 'متوفرة',
-                                  color: Colors.blue)),
-                          SizedBox(width: SizeConfig.sw(context, 12)),
-                          Expanded(
-                              child: StatusBox(
-                                  imageName: 'image.png',
-                                  title: 'مياه الشرب',
-                                  status:
-                                      object!.waterForDrinks!.available == false
-                                          ? 'لا تتوفر'
-                                          : 'متوفرة',
-                                  color: Colors.red)),
-                          SizedBox(width: SizeConfig.sw(context, 12)),
-                          Expanded(
-                              child: StatusBox(
-                                  imageName: 'image2.png',
-                                  title: 'الحمامات',
-                                  status: object?.bathrooms != 0
-                                      ? 'متوفر(${object?.bathrooms ?? 0})'
-                                      : 'لا تتوفر',
-                                  color: Colors.green)),
-                        ],
-                      ),
-                      SizedBox(height: SizeConfig.sh(context, getNewNum(30))),
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {},
-                            child: Text(
-                              'عرض الكل',
-                              style: TextStyle(
-                                  fontFamily: fontFamilyInt,
-                                  color: Colors.blue,
-                                  fontSize: SizeConfig.sp(context, 15)),
-                            ),
-                          ),
-                          Spacer(),
-                          Text(
-                            'أبرز الاحتياجات',
+                    ),
+                    SizedBox(height: SizeConfig.sh(context, 8)),
+                    // Infrastructure row
+                    Row(
+                      children: [
+                        Expanded(
+                            child: StatusBox(
+                                imageName: 'image.png',
+                                title: 'مياه للاستخدام',
+                                status: object!.water!.available == false
+                                    ? 'لا تتوفر'
+                                    : 'متوفرة',
+                                color: Colors.blue)),
+                        SizedBox(width: SizeConfig.sw(context, 12)),
+                        Expanded(
+                            child: StatusBox(
+                                imageName: 'image.png',
+                                title: 'مياه الشرب',
+                                status:
+                                    object!.waterForDrinks!.available == false
+                                        ? 'لا تتوفر'
+                                        : 'متوفرة',
+                                color: Colors.red)),
+                        SizedBox(width: SizeConfig.sw(context, 12)),
+                        Expanded(
+                            child: StatusBox(
+                                imageName: 'image2.png',
+                                title: 'الحمامات',
+                                status: object?.bathrooms != 0
+                                    ? 'متوفر(${object?.bathrooms ?? 0})'
+                                    : 'لا تتوفر',
+                                color: Colors.green)),
+                      ],
+                    ),
+                    SizedBox(height: SizeConfig.sh(context, getNewNum(30))),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () {},
+                          child: Text(
+                            'عرض الكل',
                             style: TextStyle(
                                 fontFamily: fontFamilyInt,
-                                fontSize: SizeConfig.sp(context, 22)),
+                                color: Colors.blue,
+                                fontSize: SizeConfig.sp(context, 15)),
                           ),
-                        ],
-                      ),
-                      SizedBox(height: SizeConfig.sh(context, getNewNum(28))),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          for (int i = 0; i < object!.needs.length; i++)
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              child: HighlightTile(
-                                  title: object.needs[i].details,
-                                  subtitle: 'تم الإبلاغ منذ ساعتين',
-                                  tagColor: Colors.redAccent,
-                                  tagLabel: object.needs[i].status,
-                                  imageName:
-                                      'images/icons/icon_need/image${i}.png'),
-                            ),
-                        ],
-                      ),
-                    ],
-                  );
-                },
-              ),
+                        ),
+                        Spacer(),
+                        Text(
+                          'أبرز الاحتياجات',
+                          style: TextStyle(
+                              fontFamily: fontFamilyInt,
+                              fontSize: SizeConfig.sp(context, 22)),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: SizeConfig.sh(context, getNewNum(28))),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        for (int i = 0; i < object!.needs.length; i++)
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: HighlightTile(
+                                title: object.needs[i].details,
+                                subtitle: 'تم الإبلاغ منذ ساعتين',
+                                tagColor: Colors.redAccent,
+                                tagLabel: object.needs[i].status,
+                                imageName:
+                                    'images/icons/icon_need/image${i}.png'),
+                          ),
+                      ],
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ),
       ),
+     )
     );
   }
 }

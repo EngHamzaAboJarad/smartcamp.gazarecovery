@@ -21,6 +21,7 @@ class DashboardData {
   final CampLocation? campLocation;
   final String? status;
   final int tentNumber;
+  final int id;
   final int numberOldPeople;
   final int numberOfIndividuals;
   final int familiesNumber;
@@ -43,6 +44,7 @@ class DashboardData {
     this.status,
     required this.tentNumber,
     required this.latest_needs,
+    required this.id,
     required this.numberOldPeople,
     required this.numberOfIndividuals,
     required this.familiesNumber,
@@ -111,6 +113,7 @@ class DashboardData {
       latest_needs: latestNeedsList,
       status: json['status']?.toString(),
       tentNumber: (json['tent_number'] is int) ? json['tent_number'] as int : int.tryParse(json['tent_number']?.toString() ?? '') ?? 0,
+      id: (json['id'] is int) ? json['id'] as int : int.tryParse(json['id']?.toString() ?? '') ?? 0,
       numberOldPeople: (json['number_of_old_people'] is int) ? json['number_of_old_people'] as int : int.tryParse(json['number_of_old_people']?.toString() ?? '') ?? 0,
       numberOfIndividuals: (json['number_of_individuals'] is int) ? json['number_of_individuals'] as int : int.tryParse(json['number_of_individuals']?.toString() ?? '') ?? 0,
       familiesNumber: (json['families_number'] is int) ? json['families_number'] as int : int.tryParse(json['families_number']?.toString() ?? '') ?? 0,
